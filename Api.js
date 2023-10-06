@@ -22,6 +22,7 @@ export class Api {
     procesarPeticiones() {
         
        this.app.use("/",rutasAPI)
+       this.app.use(express.json())
 
     }
 
