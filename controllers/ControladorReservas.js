@@ -64,7 +64,7 @@ export class ControladorReservas{
             
         }
     }
-    regitrar(request,response){
+    registrar(request,response){
         try {
               //1.hay que recibir datos (si)
               let datosRegistrar=request.body
