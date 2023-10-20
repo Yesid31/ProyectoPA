@@ -1,15 +1,15 @@
+import { ServicioHabitacion } from "../services/ServicioHabitacion.js"
 export class ControladorHabitacion{
     constructor() {}
 
-    bucarTodas(request,response){
+   async bucarTodas(request,response){
         try {
-        //1.Hay que recibir datos
-        //2.Intentare Conectarme a BD
-        //3.Envio La Respuesta 
+            let servicioHabitacion=new ServicioHabitacion()
+ 
         response.status(200).json({
           "estado":true,
           "mensaje": "Exito Buscando Las Habitaciones",
-          "datos":"ACA VAN LOS DATOS DE LA DB" 
+          "datos":await servicioHabitacion.buscarTodas()
         })
         }
         catch(error){
@@ -20,8 +20,9 @@ export class ControladorHabitacion{
 
         }
     }
-    buscarPorId(request,response){
+    async buscarPorId(request,response){
         try {
+            let servicioHabitacion=new ServicioHabitacion()
          
         //Hay que recibir datos(si)
         let id=request.params.id    
@@ -30,7 +31,7 @@ export class ControladorHabitacion{
         response.status(200).json({
             "estado":true,
             "mensaje": "Exito Buscando La habitacion",
-            "datos":"ACA VAN LOS DATOS DE LA DB" 
+            "datos":await servicioHabitacion.buscarPorId(id)
           })
 
         }
@@ -44,17 +45,19 @@ export class ControladorHabitacion{
             
         }
     }
-    modificar(request,response){
+    async modificar(request,response){
         try {
+            let servicioHabitacion=new ServicioHabitacion()
             //1.hay que recibir datos (si)
             let id=request.params.id
             let datosModificar=request.body
+           const result= await servicioHabitacion.modificar(id,datos) //Estos
             //2.modificar en DB
             //3.enviar respuesta
             response.status(200).json({
                 "estado":true,
                 "mensaje": "Exito Buscando La habitacion",
-                "datos":null
+                "datos":await result.json()
               })
             
 
@@ -68,17 +71,22 @@ export class ControladorHabitacion{
             
         }
     }
-    registrar(request,response){
+    async registrar(request,response){
         try {
+            let servicioHabitacion=new ServicioHabitacion()
             //1.hay que recibir datos (si)
             let datosRegistrar=request.body
+            console.log (datosRegistrar)
             //2.guardelos en la Db
-            //3.Responda
+            // await servicioHabitacion.registrar(datos)
             response.status(200).json({
                 "estado":true,
                 "mensaje": "Exito registrando la habitacion",
-                "datos":null
+                
+                "datos":datosRegistrar.precioNoche,
+                "diferencia":"diferencia en dia calculada"
               })
+             
 
         }
         catch(error){
@@ -89,11 +97,12 @@ export class ControladorHabitacion{
             
         }
     }
-    eliminar(request,response){
+   async eliminar(request,response){
         try {
+            let servicioHabitacion=new ServicioHabitacion()
          //1 hay que recibir datos (Si)
          let id=request.params.id
-         //eliminarlo de la DB
+         await servicioHabitacion.eliminar(id)
          //3.responda
          response.status(200).json({
             "estado":true,

@@ -1,8 +1,10 @@
+import { ServicioReserva } from "../services/ServicioReserva.js"
 export class ControladorReservas{
     constructor() {}
 
-    bucarReservas(request,response){
+    async bucarReservas(request,response){
         try {
+            let servicioReserva=new ServicioReserva()
             
                 //1.Hay que recibir datos
                 //2.Intentare Conectarme a BD
@@ -10,7 +12,7 @@ export class ControladorReservas{
                 response.status(200).json({
                   "estado":true,
                   "mensaje": "Exito Buscando Las Reservas",
-                  "datos":"ACA VAN LOS DATOS DE LA DB" 
+                  "datos":await servicioReserva.bucarReservas() 
                 })
                 }
                 catch(error){
@@ -22,8 +24,9 @@ export class ControladorReservas{
                 }
         }
 
-    ReservasPorId(request,response){
+        async    ReservasPorId(request,response){
         try {
+            let servicioReserva=new ServicioReserva()
             //Hay que recibir datos(si)
         let id=request.params.id    
         //2.Con  el id que me mando el cliente busco la habitacion en BD
@@ -31,7 +34,7 @@ export class ControladorReservas{
         response.status(200).json({
             "estado":true,
             "mensaje": "Exito Buscando La Reserva",
-            "datos":"ACA VAN LOS DATOS DE LA DB" 
+            "datos":await servicioReserva.ReservasPorId(id)
           })
         }
         catch(error){
@@ -42,17 +45,19 @@ export class ControladorReservas{
 
         }
     }
-    modificar(request,response){
+    async  modificar(request,response){
         try {
+            let servicioReserva=new ServicioReserva()
               //1.hay que recibir datos (si)
               let id=request.params.id
               let datosModificar=request.body
+              const result= await servicioReserva.modificar(id,datos)
               //2.modificar en DB
               //3.enviar respuesta
               response.status(200).json({
                   "estado":true,
                   "mensaje": "Exito Buscando La Reserva",
-                  "datos":null
+                  "datos":await result.json()
                 })
 
         }
@@ -64,16 +69,19 @@ export class ControladorReservas{
             
         }
     }
-    registrar(request,response){
+    async registrar(request,response){
         try {
+            let servicioReserva=new ServicioReserva()
               //1.hay que recibir datos (si)
               let datosRegistrar=request.body
               //2.guardelos en la Db
               //3.Responda
+              await servicioReserva.registrar(datos)
               response.status(200).json({
                   "estado":true,
                   "mensaje": "Exito registrando la reserva",
-                  "datos":null
+                  "datos":"aca van los datos",
+                  "diferencia":"diferencia en dia calculada"
                 })
 
         }
@@ -85,10 +93,12 @@ export class ControladorReservas{
             
         }
     }
-    eliminar(request,response){
+    async eliminar(request,response){
         try {
+            let servicioReserva=new ServicioReserva()
              //1 hay que recibir datos (Si)
          let id=request.params.id
+         await servicioReserva.eliminar(id)
          //eliminarlo de la DB
          //3.responda
          response.status(200).json({

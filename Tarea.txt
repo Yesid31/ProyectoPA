@@ -1,0 +1,6 @@
+1.Eliminar Datos (Ya)
+2.Repuestas Ok
+3.En Registrar (tomar 2 fechas del objeto datos y calcular la diferencia de dos dias (fecha inicio y Fecha Final)
+
+//ENTREGAR 
+1.Certificado De Platzi
