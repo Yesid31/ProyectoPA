@@ -20,7 +20,7 @@ import {modeloReserva} from '../models/modeloReservas.js'
     
    }
    async  eliminar(id){
-    return await modeloReserva.deleteOne(id)
+    return await modeloReserva.findByIdAndDelete(id)
    }
     
 }

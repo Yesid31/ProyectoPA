@@ -76,7 +76,9 @@ export class ControladorHabitacion{
             let servicioHabitacion=new ServicioHabitacion()
             //1.hay que recibir datos (si)
             let datosRegistrar=request.body
-            console.log (datosRegistrar)
+          
+            await servicioHabitacion.registrar(datosRegistrar)
+
             //2.guardelos en la Db
             // await servicioHabitacion.registrar(datos)
             response.status(200).json({
