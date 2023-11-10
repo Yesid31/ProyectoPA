@@ -1,4 +1,7 @@
 import express from "express";
+import cors from 'cors'
+
+
 import { rutasAPI } from './routes/rutasHoteles.js'
 import { establecerConexionBD } from "./database/conexion.js";
 
@@ -13,7 +16,7 @@ export class Api {
 
     //1. Levantar  El Servidor 
     levantarServidor() {
-        this.app.listen(3000, function () {
+        this.app.listen(process.env.PORT, function () {
             console.log("Servidor operando");
         });
 
@@ -21,6 +24,7 @@ export class Api {
 
     //2. Atender Las Peticiones Y Responde
     procesarPeticiones() {
+        this.app.use(cors())
         this.app.use(express.json())
        this.app.use("/",rutasAPI)
       
